@@ -1,2 +1,2 @@
 # textAdventureGame
-Indedsddssdsddssdpendent Java project; console based text game
+Java project; console based text game
