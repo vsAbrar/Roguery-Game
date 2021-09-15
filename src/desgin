@@ -1,0 +1,199 @@
+hmm
+
+Running Game creates a new instance of Game.
+this new instance of Game has a
+new Map instance, new Player instance,
+and adds that player to its position on the Map.
+
+We want the map to update itself, and the location of the Player, when the user moves w/ arrow keys.
+
+
+Moving:
+Only the Player moves.
+if nothing is already there, then move player to new location and (remove? it from previous location);
+The map itself should control how the map should shift if player moves.
+this public method can be called later by the Game class.
+
+MoveUp:
+if up is pressed;
+if the location above is within array range.
+make current location null on the array (even after leaving an interactable loc, it should
+become null;;
+now:::: if spot above is open, just move (place) current player in loc above.
+if spot above has a location, (meaning its not null in the array):
+call the above locations explore method, then replace spot in array w/ Player.
+**Remember to update Player's Y attribute.
+
+weve completed the first part of the move methods, next is to implement
+the move methods when they land on a Location.
+
+Remember to decrease hydration by 1 each time you move.
+
+Location:
+A location should have a (after x and y)
+- treasure attribute (instance var), as an Item[] array, that gets
+appended to the Player's inventory after they clear the location. After they arrive at +
+clear the location, it disappears from the map.
+- light attribute, as an int out of 10, that tells of the amount of light. The less light there
+is, the more difficulty (more health/damage) the enemies will do. There should be a pop up;
+as: "the light level is X, are you sure you wish to proceed?" - if No, then undo the recent move.
+
+Instead of creating many different types, just create instances of location with different names
+since there isnt really anything specific youre doing per type of area,
+all you ever need is the light level to determine enemies and then the treasure you can get.
+
+In locations:
+Fight (Enemies and Light), Treasure (After completion), and Atmospheric Sentences like
+"It is quiet. The Wind rustles." etc.
+
+
+Enemy:
+Created based on location; (do not have location)
+- have health
+- have attackStat
+- have specialAbility: Randomly given some ability, healer, heartrender (takes your hearts away), etc
+- There should be a Fight class that instantiates and starts a turn by turn fight between
+you and the enemy.
+
+CURRENTLY:
+Working on the explore method, that should start the sequence of events of a location.
+explore class should call Fight classes/methods of fight class, etc.
+
+work on Fight class*** first:
+
+Every light level should add 2x itself to rand.
+
+Start fight method - is what were working on rn. It should check whether its the users turn
+and then call the method that gives them choices.
+
+attack method - called on an object, takes in an object to attack.
+
+Fight class should be the only place that subtracts health; because gameOver is called there.
+
+Remove defense stat, it does nothing and would be too hard to implement in an int based game.
+
+Potion class// always heals by 100, unless you switch it, which youll need to edit Fight and Potion Classes to do so.
+
+Forget sentence class, just add those manually within locations and explore methods.
+
+//change light to darkness? because higher light rn is used to make harder enemies.
+^Location class
+
+on the moving screen, there should be two more buttons apart from arrow keys:
+M for menu;
+S for status (stats)
+B for bag; (inventory)
+
+make new instance variable, type Weapon, for player. And then once in bag, seperate bag into different sections,
+and allow player to equp different weapons (which may have different additional benefits) -- otherwise, just have it
+so that upon gaining a new weapon thats better, it'll automatically equip it. But then consider how the shop will work;
+
+^^ you have to make it able for the player to heal when not in battle. atm, you can only heal in battle;
+
+Now, focus on the ui/appearance part, try to get everything to work, fix the movement, location, etc.
+
+ignore Window.
+
+DO NOW:
+B, S, for status/bag;
+;fix so that when you go out of bounds, it tells you you cant go any further(a mist keeps you back) check**
+Add a space between messages - an enemy approaches!, etc.
+finish up Map class. finish Run method.
+
+When all locations are cleared , add one final location // or end game saying you cleared all locations!
+correctly implement gameover logic.
+
+No longer implementing Run method.***
+
+_____________________________________________________
+
+change difficulty so its actually kinda difficult***
+look into shop, weapon equipping, b for bag, shop/selling/buying, upgrades, etc.
+
+e for equip***
+m for market (to sell)***
+
+look at potions, if you really want a static potion item, or if you want them to be variable;
+these would be sold in the shop.*** *********
+
+Consider using ASCII art (but you would have to link the sources, and it would mean there was something
+part of your project that you didnt create. But perhaps you shouldnt shy away from it if it makes your game better.
+
+there should be a different static method for victory in Game. A congrats + extra stuff,
+instead of just a single game over screen? Currently, theres only game over. @@
+
+Fight, Game, Location, Map, update Player.
+
+make water buyable, make it so that your thirst increases/ water level decreases every time you walk.
+Make it decrement by 1 each single step. Make a home base location as well that replinishes health and water,
+and where you can sell. @@
+
+when you sell a weapon, make sure it only gives options from the ones you dont have equipped. @@
+
+equipping is done!! now you just need to build a Base, a location that replenishes your stuff. And
+a selling option, either at the main menu by pressing g, or a specific M for market location. Figure out how to make
+custom Locations, maybe subclass location or create another subclass of GameObject and copy most of Location.
+@@
+
+Temporary Stores! One time use stores.
+Also, add ways you can make $$$, like you gain some money every time you win in a fight;
+@@
+
+You may even be able to have several stages like in Mystery Dungeon, like repeat game 3 times. etc.
+^
+
+ITEMS TO KEEP AT STORE:
+Hydration Potion (water), Regular Health Pot, Some Weapons,
+;; in order for this to work, you will have to update the potion (and fight? classes)
+@@
+
+Add water potion or just water bottle to items ( make it instantly consumable, so like if you buy the water,
+instead of giving you an item, it just increases your hydration. ).
+^^^^^^ @@
+
+You still need to check levels and int, light levels and how they affect weapon damage/ sell values, enemy health/attack
+++ Make sure the store says that sell values are the same as buy values: Make a new toString method to get the same string
+but make it say Buy value instead!/
+Put lower bounds on the random lightLevel, etc.
+Add spaces after blocks of text, like a space after the user's input.
+
+
+//////////////////////////////////////////////////
+
+remove extra attribute of potion like healthHeal; this should always be a certain number, like 60.
+// or, you may get certain "powerups" at the end of a stage that updates a variable that controls
+the heal amount and increases it by 10 every time you move up a stage and fights get harder.
+potions are very important, since they are 1/2 of the attacking system.
+Further, after randomizing stages based on input difficulties, add a damaging potion / bomb*** (new item)
+that players can use in a pinch and can buy to fight harder battles.
+Consider adding boss battles too! Perhaps in between a stage, after a single stage ends and the player moves
+to the next one.
+Look at info under stage.
+
+implement Bomb under Fight.
+
+Let the user type L for Legend. Show potential GameObjects and what each inital refers to.
+Store, weird return Arraylist type - fix.
+
+***Add a boss battle after clearing each stage.
+fix bomb text (BOMB: 50) + buying text (instead of saying sell value, say buy value), add a space between lines.
+add another option to store, m that prints current money // and when you buy bomb, rn it doesnt print current money.
+
+it prints you have cleared the stage twice.***
+
+Fix hard coded Map/moving code, see more under Stage. (i dont see this error anymore?...)
+
+SOMETIMES, THIS HAPPENS:
+
+Exception in thread "main" java.lang.IllegalArgumentException: bound must be positive
+        at java.base/java.util.Random.nextInt(Random.java:388)
+        at Enemy.randomEnemy(Enemy.java:40)
+        at Fight.<init>(Fight.java:15)
+        at Location.explore(Location.java:68)
+        at Map.moveDown(Map.java:312)
+        at Map.moving(Map.java:72)
+        at Stage.<init>(Stage.java:24)
+        at Stage.main(Stage.java:38)
+
+why?... (when space is 5, i have not seen this so far when space is 7. Probably some code is hardcoded.
+positive means NON ZERO. Random is inclusive of 0...! its because when light level was 0, 0 * 10 gave 0. SOLVED>
